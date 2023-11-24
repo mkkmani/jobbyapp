@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom'
 import {MdLocationOn} from 'react-icons/md'
 import {AiFillStar} from 'react-icons/ai'
+import './index.css'
 
 const JobItem = props => {
   const {jobData} = props
@@ -50,7 +51,7 @@ const JobItem = props => {
         </div>
         <hr className="hr-line" />
         <div className="second-part-container">
-          <h1 className="description-heading">Heading</h1>
+          <h1 className="description-heading">Description</h1>
           <p className="description-para">{jobDesc}</p>
         </div>
       </li>

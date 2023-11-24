@@ -2,6 +2,7 @@ import {Link, withRouter} from 'react-router-dom'
 import {ImHome} from 'react-icons/im'
 import {FiLogOut} from 'react-icons/fi'
 import Cookies from 'js-cookie'
+import './index.css'
 
 const webSiteLogo = 'https://assets.ccbp.in/frontend/react-js/logo-img.png'
 

@@ -132,7 +132,7 @@ class AllJobs extends Component {
       const updatedData = data.jobs.map(each => ({
         companyLogoUrl: each.company_logo_url,
         id: each.id,
-        desc: each.job_description,
+        jobDesc: each.job_description,
         employmentType: each.employment_type,
         location: each.location,
         rating: each.rating,
@@ -375,7 +375,7 @@ class AllJobs extends Component {
                 onClick={this.onSubmitSearchInput}
                 aria-label="search-icon"
               >
-                <AiOutlineSearch />
+                <AiOutlineSearch className="search-icon" />
               </button>
             </div>
             {this.onRenderJobsStatus()}
