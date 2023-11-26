@@ -7,6 +7,8 @@ import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import SimilarJobs from '../SimilarJobs'
 
+import './index.css'
+
 const apiStatusList = {
   init: 'INIT',
   success: 'SUCCESS',
@@ -26,12 +28,11 @@ class AboutJobItem extends Component {
   }
 
   getJobData = async () => {
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
     this.setState({apiStatus: apiStatusList.loading})
-    const {
-      match: {
-        params: {id},
-      },
-    } = this.props
+
     const token = Cookies.get('jwt_token')
     const api = `https://apis.ccbp.in/jobs/${id}`
     const options = {
@@ -40,9 +41,9 @@ class AboutJobItem extends Component {
     }
 
     const response = await fetch(api, options)
-
     if (response.ok) {
-      const data = response.json()
+      const data = await response.json()
+
       const updatedData = [data.job_details].map(each => ({
         companyLogoUrl: each.company_logo_url,
         companyWebsiteUrl: each.company_website_url,
@@ -66,7 +67,7 @@ class AboutJobItem extends Component {
       const updatedSimilarJobs = data.similar_jobs.map(each => ({
         companyLogoUrl: each.company_logo_url,
         id: each.id,
-        desc: each.job_description,
+        jobDesc: each.job_description,
         employmentType: each.employment_type,
         location: each.location,
         rating: each.rating,
@@ -79,9 +80,7 @@ class AboutJobItem extends Component {
         apiStatus: apiStatusList.success,
       })
     } else {
-      this.setState({
-        apiStatus: apiStatusList.failure,
-      })
+      this.setState({apiStatus: apiStatusList.failure})
     }
   }
 
@@ -93,7 +92,7 @@ class AboutJobItem extends Component {
         companyLogoUrl,
         companyWebsiteUrl,
         employmentType,
-        desc,
+        jobDesc,
         lifeAtCompany,
         location,
         packagePerAnnum,
@@ -142,7 +141,7 @@ class AboutJobItem extends Component {
                 Visit <BiLinkExternal />
               </a>
             </div>
-            <p className="description-para">{desc}</p>
+            <p className="description-para">{jobDesc}</p>
           </div>
           <h1>Skills</h1>
           <ul className="ul-job-details-container">
@@ -169,7 +168,7 @@ class AboutJobItem extends Component {
             {similarJobsData.map(each => (
               <SimilarJobs
                 key={each.id}
-                similarJobsData={each}
+                similarJobData={each}
                 employmentType={employmentType}
               />
             ))}
