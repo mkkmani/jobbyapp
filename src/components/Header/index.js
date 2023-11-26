@@ -1,5 +1,6 @@
 import {Link, withRouter} from 'react-router-dom'
 import {ImHome} from 'react-icons/im'
+import {FaBriefcase} from 'react-icons/fa'
 import {FiLogOut} from 'react-icons/fi'
 import Cookies from 'js-cookie'
 import './index.css'
@@ -27,7 +28,7 @@ const Header = props => {
             <h1 className="nav-text">Home</h1>
           </Link>
           <Link className="link" to="/jobs">
-            <ImHome className="home-icon" />
+            <FaBriefcase className="home-icon" />
             <h1 className="nav-text">Jobs</h1>
           </Link>
         </li>

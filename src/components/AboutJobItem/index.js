@@ -152,7 +152,7 @@ class AboutJobItem extends Component {
                   src={each.imageUrl}
                   alt={each.name}
                 />
-                <p>{each.name}</p>
+                <p className="skill-name">{each.name}</p>
               </li>
             ))}
           </ul>
@@ -161,7 +161,11 @@ class AboutJobItem extends Component {
               <h1>Life at Company</h1>
               <p>{lifeAtCompany.desc}</p>
             </div>
-            <img src={lifeAtCompany.imageUrl} alt="life at company" />
+            <img
+              className="life-at-company-img"
+              src={lifeAtCompany.imageUrl}
+              alt="life at company"
+            />
           </div>
           <h1 className="similar-jobs-heading">Similar Jobs</h1>
           <ul className="similar-jobs-ul-container">

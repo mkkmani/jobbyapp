@@ -359,7 +359,7 @@ class AllJobs extends Component {
             {this.getRadioButtonsView()}
           </div>
           <div className="jobs-container">
-            <div>
+            <div className="search-input-button">
               <input
                 className="search-input"
                 type="search"

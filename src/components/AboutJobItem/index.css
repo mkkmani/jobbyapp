@@ -134,6 +134,11 @@
   font-weight: bold;
   font-size: 25px;
   padding: 0;
+  justify-content: center;
+}
+
+.second-part-container {
+  color: white;
 }
 
 .li-job-details-container {
@@ -143,6 +148,11 @@
   margin-bottom: 50px;
 }
 
+.description-para {
+  color: white;
+  width: 80%;
+}
+
 .company-life-img-container {
   display: flex;
   flex-direction: row;
@@ -150,6 +160,7 @@
 }
 
 .life-heading-para-container {
+  color: white;
   width: 70%;
 }
 
@@ -176,9 +187,19 @@
 }
 
 .skill-img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   margin-right: 10px;
+}
+
+.life-at-company-img {
+  width: 280px;
+  height: 160px;
+  border-radius: 16px;
+}
+
+.skill-name {
+  color: white;
 }
 
 .similar-jobs-heading {
