@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
@@ -45,6 +44,29 @@ const salaryRangesList = [
   },
 ]
 
+const locationsList = [
+  {
+    locationName: 'Hyderabad',
+    label: 'Hyderabad',
+  },
+  {
+    locationName: 'Bangalore',
+    label: 'Bangalore',
+  },
+  {
+    locationName: 'Chennai',
+    label: 'Chennai',
+  },
+  {
+    locationName: 'Delhi',
+    label: 'Delhi',
+  },
+  {
+    locationName: 'Mumbai',
+    label: 'Mumbai',
+  },
+]
+
 const apiStatusList = {
   init: 'INIT',
   loading: 'LOADING',
@@ -59,6 +81,7 @@ class AllJobs extends Component {
     profileData: [],
     jobsData: [],
     checkboxInputs: [],
+    locationInputs: [],
     radioInput: '',
     searchInput: '',
     apiStatus: apiStatusList.init,
@@ -252,23 +275,30 @@ class AllJobs extends Component {
   )
 
   onGetJobsView = () => {
-    const {jobsData} = this.state
-    const noJobs = jobsData.length === 0
+    const {jobsData, locationInputs} = this.state
 
-    return noJobs ? (
+    const noJobs = jobsData.length === 0
+    let filteredJobs = jobsData
+
+    if (locationInputs.length > 0) {
+      filteredJobs = jobsData.filter(job =>
+        locationInputs.includes(job.location),
+      )
+    }
+
+    return noJobs || filteredJobs.length === 0 ? (
       <div className="no-jobs-container">
         <img
           className="no-jobs-img"
           src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
           alt="no jobs"
         />
-
         <h1>No jobs found</h1>
-        <p>We could not find any jobs. Try another filters.</p>
+        <p>We could not find any jobs. Try other filters.</p>
       </div>
     ) : (
       <ul className="ul-job-items-container">
-        {jobsData.map(each => (
+        {filteredJobs.map(each => (
           <JobItem key={each.id} jobData={each} />
         ))}
       </ul>
@@ -328,6 +358,41 @@ class AllJobs extends Component {
     </ul>
   )
 
+  onGetLocationOption = e => {
+    const {locationInputs} = this.state
+    const inputNotInList = locationInputs.filter(each => each === e.target.id)
+
+    if (inputNotInList.length === 0) {
+      this.setState(
+        prev => ({
+          locationInputs: [...prev.locationInputs, e.target.id],
+        }),
+        this.getJobDetails,
+      )
+    } else {
+      const filteredData = locationInputs.filter(each => each !== e.target.id)
+      this.setState({locationInputs: filteredData}, this.getJobDetails)
+    }
+  }
+
+  getLocationsView = () => (
+    <ul className="check-boxes-container">
+      {locationsList.map(each => (
+        <li className="li-container" key={each.locationName}>
+          <input
+            className="input"
+            id={each.locationName}
+            type="checkbox"
+            onChange={this.onGetLocationOption}
+          />
+          <label className="label" htmlFor={each.locationName}>
+            {each.label}
+          </label>
+        </li>
+      ))}
+    </ul>
+  )
+
   onGetSearchInput = e => {
     this.setState({searchInput: e.target.value})
   }
@@ -357,6 +422,10 @@ class AllJobs extends Component {
             <hr className="hr-line" />
             <h1 className="text">Salary Range</h1>
             {this.getRadioButtonsView()}
+            {this.onRenderProfileStatus()}
+            <hr className="hr-line" />
+            <h1 className="text">Location</h1>
+            {this.getLocationsView()}
           </div>
           <div className="jobs-container">
             <div className="search-input-button">
