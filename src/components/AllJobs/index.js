@@ -240,9 +240,9 @@ class AllJobs extends Component {
 
     switch (apiStatus) {
       case apiStatusList.success:
-        return this.getProfileDetails()
-      case apiStatusList.failure:
         return this.getProfileView()
+      case apiStatusList.failure:
+        return this.profileFailureView()
       case apiStatusList.loading:
         return this.renderLoader()
 
